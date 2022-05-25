@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright 2006-2018 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 2006-2022 Gentoo Authors; Distributed under the GPL v2
 
 # bash installer
 #
