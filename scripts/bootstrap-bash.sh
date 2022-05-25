@@ -22,7 +22,7 @@ GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org/distfiles"}
 
 command_exists() {
 	check_cmd="$1"
-	command -v $check_cmd >/dev/null 2>&1
+	command -v "$check_cmd" >/dev/null 2>&1
 }
 
 same_file() {
@@ -40,7 +40,7 @@ if [ ! -e bash-4.2.tar.gz ] ; then
 	eerror() { echo "!!! $*" 1>&2; }
 	einfo() { echo "* $*"; }
 
-	if [ -z ${FETCH_COMMAND} ] ; then
+	if [ -z "${FETCH_COMMAND}" ] ; then
 		# Try to find a download manager, we only deal with wget,
 		# curl, FreeBSD's fetch and ftp.
 		if command_exists wget; then
@@ -65,7 +65,7 @@ if [ ! -e bash-4.2.tar.gz ] ; then
 					;;
 			esac
 		fi
-		if [ -z ${FETCH_COMMAND} ]; then
+		if [ -z "${FETCH_COMMAND}" ]; then
 			eerror "no suitable download manager found (need wget, curl, fetch or ftp)"
 			eerror "could not download ${1##*/}"
 			eerror "download the file manually, and put it in ${PWD}"
