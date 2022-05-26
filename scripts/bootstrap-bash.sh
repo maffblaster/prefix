@@ -8,28 +8,28 @@
 # dynamic function calling.  So, we need to bootstrap bash outside the
 # bootstrap script, which is the purpose of this script.
 
-if [ -z "$1" ] ; then
+if [ -z "${1}" ] ; then
 	echo "usage: ${0} <location>" > /dev/stderr
 	exit 255
 fi
 
-mkdir -p "$1"
-cd "$1"
+mkdir -p "${1}"
+cd "${1}" || exit 1
 mkdir bash-build
-cd bash-build
+cd bash-build || exit 1
 
 GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org/distfiles"}
 
 command_exists() {
-	check_cmd="$1"
+	check_cmd="${1}"
 	command -v "$check_cmd" >/dev/null 2>&1
 }
 
 same_file() {
-	file1="$1"
-	file2="$2"
+	file1="${1}"
+	file2="${2}"
 
-	if [ "$(stat -c '%i%d' "$file1" "$file2" | sort -u | wc -l)" -eq 1 ]; then
+	if [ "$(stat -c '%i%d' "${file1}" "${file2}" | sort -u | wc -l)" -eq 1 ]; then
 		return 0
 	else
 		return 1
@@ -37,12 +37,12 @@ same_file() {
 }
 
 if [ ! -e bash-4.2.tar.gz ] ; then
-	eerror() { echo "!!! $*" 1>&2; }
-	einfo() { echo "* $*"; }
+	eerror() { echo "!!! ${*}" 1>&2; }
+	einfo() { echo "* ${*}"; }
 
 	if [ -z "${FETCH_COMMAND}" ] ; then
-		# Try to find a download manager, we only deal with wget,
-		# curl, FreeBSD's fetch and ftp.
+		# Try to find a download manager, this script only deal with wget,
+		# curl, FreeBSD's fetch, and ftp...
 		if command_exists wget; then
 			FETCH_COMMAND="wget"
 			case "$(wget -h 2>&1)" in
@@ -77,7 +77,7 @@ fi
 
 gzip -d bash-4.2.tar.gz
 tar -xf bash-4.2.tar
-cd bash-4.2
+cd bash-4.2 || exit 1
 
 ./configure --prefix="${1}"/usr --disable-nls
 make
