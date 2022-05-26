@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright 2006-2022 Gentoo Authors; Distributed under the GPL v2
 
-# bash installer
+# bash compiler and installer
 #
 # POSIX (?) /bin/sh which doesn't eat most of the stuff in the
 # bootstrap-prefix script, among which the most important part:
@@ -12,9 +12,11 @@
 
 PREFIX_BOOTSTRAP_BASH_VERSION="bash-5.1" # Upstream supports bash-5.1.xxx for patch set.
 PREFIX_BOOTSTRAP_BASH_BUILD_DIRECTORY="" # Declare variable for later use.
+GNU_BASH_URI="https://ftp.gnu.org/gnu/bash/"
 
-# The following URI can be used to download bash directly from upstream...
-#GNU_BASH_URI="https://ftp.gnu.org/gnu/bash/${PREFIX_BOOTSTRAP_BASH_VERSION}.tar.gz"
+# The following variable can be uncommented in order to download the compressed bash 
+# tarball directly from the GNU project upstream, instead of the Gentoo distfiles mirror.
+#GENTOO_MIRRORS="${GNU_BASH_URI}"
 
 GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org/distfiles"}
 
